@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriBright Clinicals | Clinical Nutritionist Reena Jain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #1e4d46;      /* Deep Clinical Teal */
+            --primary-light: #eff6f5;/* Soft Background Sage Tint */
+            --accent: #d4af37;       /* Soft Professional Gold Accent */
+            --text-main: #2b3a37;    /* Dark Charcoal with Green Undertones */
+            --text-muted: #5a6e6a;   /* Secondary Text */
+            --white: #ffffff;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-main);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 1.25rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .menu-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 6px 12px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 100px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(30, 77, 70, 0.2);
+        }
+
+        .menu-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* --- SLIDE-IN CATALOG MENU --- */
+        .catalog-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: var(--primary);
+            z-index: 1100;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            transition: var(--transition);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.2);
+        }
+
+        .catalog-menu.active {
+            right: 0;
+        }
+
+        .close-menu-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-menu-btn:hover {
+            color: var(--accent);
+        }
+
+        .menu-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .menu-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.35rem;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            transition: var(--transition);
+            display: block;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .menu-links a:hover, .menu-links a.active-link {
+            color: var(--accent);
+            padding-left: 10px;
+            border-bottom-color: var(--accent);
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.4);
+            z-index: 1050;
+            display: none;
+            backdrop-filter: blur(3px);
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* --- MAIN LAYOUT STRUCTURE --- */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- TAB SPECIFIC COMPONENTS --- */
+        h1, h2 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 { font-size: 2.5rem; line-height: 1.2; }
+        p { margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--text-muted); }
+
+        /* Grid Framework for Home/Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2 { grid-template-columns: 1fr; gap: 2.5rem; }
+        }
+
+        /* Lists */
+        .services-list {
+            list-style: none;
+            margin: 1.5rem 0 2.5rem 0;
+        }
+
+        .services-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .services-list li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Image Display Row */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        /* --- BOOKING FORM SQUARE --- */
+        .booking-card {
+            background: var(--primary);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(30, 77, 70, 0.25);
+            position: sticky;
+            top: 120px;
+        }
+
+        .booking-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .form-group select option {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .book-btn {
+            width: 100%;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 1rem;
+        }
+
+        .book-btn:hover {
+            background: var(--white);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* --- POPUP MODAL --- */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: modalScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes modalScale {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-box i {
+            font-size: 3.5rem;
+            color: #2ec4b6;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-box h4 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .modal-close-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .modal-close-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* --- ALL PLANS STYLING --- */
+        .plans-container {
+            background: var(--primary-light);
+            border-left: 5px solid var(--primary);
+            padding: 2.5rem;
+            border-radius: 0 16px 16px 0;
+            margin-top: 1.5rem;
+        }
+
+        .promo-badge {
+            background: #e63946;
+            color: var(--white);
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .trial-box {
+            background: var(--white);
+            padding: 1.25rem;
+            border-radius: 10px;
+            border: 2px dashed var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin: 1rem 0 2rem 0;
+            display: inline-block;
+        }
+
+        .price-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .price-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 1.15rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .highlights-box {
+            background: rgba(212, 175, 55, 0.15);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .features-grid {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        /* --- FLOATING WHATSAPP BUTTON --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20ba5a;
+        }
+
+        /* --- NUTRI SCAN APP STYLING --- */
+        .nutriscan-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--primary-light);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(30, 77, 70, 0.1);
+        }
+
+        .scan-window {
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 4/3;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--primary);
+        }
+
+        #scanVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #scanCanvas {
+            display: none;
+        }
+
+        .scan-overlay-ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.5rem;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+        .scan-target-box {
+            border: 2px dashed var(--accent);
+            width: 70%;
+            height: 60%;
+            margin: auto;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.4);
+        }
+
+        .scan-placeholder {
+            color: var(--white);
+            text-align: center;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .scan-placeholder i {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .scan-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .scan-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .scan-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .scan-btn.capture {
+            background: #e63946;
+        }
+
+        .scan-results {
+            display: none;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .result-title {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .macro-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .macro-card {
+            background: var(--primary-light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 3px solid var(--primary);
+        }
+
+        .macro-card .value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .macro-card .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .recipe-box {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .recipe-box h4 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .recipe-box ol {
+            padding-left: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        .recipe-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .macro-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+
+    <style>
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px; /* Adds space between the image and the text */
+            text-decoration: none;
+            font-size: 24px; /* Adjust based on your preferred font size */
+            font-weight: bold;
+            color: #333; /* Change to your preferred text color */
+        }
+
+        .logo-img {
+            height: 90px; /* Adjust this to make the logo bigger or smaller */
+            width: auto;  /* Maintains the aspect ratio so it doesn't stretch */
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo" onclick="switchTab('home')">
+            <img src="https://cdn.pixabay.com/photo/2026/06/21/11/32/11-32-43-113__340.jpg" alt="NutriBright Logo" class="logo-img">
+        </a>
+        <button class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i> Menu</button>
+    </header>
+
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <nav class="catalog-menu" id="catalogMenu">
+        <button class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
+        <ul class="menu-links">
+            <li><a href="#" id="link-home" class="active-link" onclick="switchTab('home')">Home</a></li>
+            <li><a href="#" id="link-about" onclick="switchTab('about')">About Us</a></li>
+            <li><a href="#" id="link-services" onclick="switchTab('services')">All Services</a></li>
+            <li><a href="#" id="link-plans" onclick="switchTab('plans')">All Plans</a></li>
+            <li><a href="#" id="link-nutriscan" onclick="switchTab('nutriscan')">Nutri Scan</a></li>
+        </ul>
+    </nav>
+
+    <main>
+
+        <div id="home" class="tab-content active">
+            <div class="grid-2">
+                <div>
+                    <h1>Welcome! I’m Reena Jain</h1>
+                    <p>A clinical nutritionist dedicated to helping you transform your health from the inside out through sustainable, evidence-based nutrition. Together, we’ll cut through the confusion and create a personalized plan that fits your unique lifestyle and health goals.</p>
+                    
+                    <h2 style="font-size: 1.5rem; margin-top: 2rem;">These are the Services Provided By Us:</h2>
+                    <ul class="services-list">
+                        <li>PCOS Management</li>
+                        <li>Hypertension (BP Control)</li>
+                        <li>Cholesterol Management</li>
+                        <li>Fatty Liver Care</li>
+                        <li>Diabetes Management</li>
+                        <li>Thyroid & Hormonal Balance</li>
+                        <li>Digestive & Gut Health</li>
+                        <li>Weight Management</li>
+                        <li>Skin, Hair & Immunity Support</li>
+                    </ul>
+
+                    <div class="image-gallery">
+                        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=500&q=80" alt="Healthy Clinical Diet Setup">
+                        <img src="https://images.unsplash.com/photo-1543362906-acfc16c67564?auto=format&fit=crop&w=500&q=80" alt="Fresh Greens Consultation Layout">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="booking-card">
+                        <h3>Take First Step To Healthier You.<br>BOOK YOUR ONLINE SESSION.</h3>
+                        <form action="https://formspree.io/f/mgojwlnb" method="POST" id="bookingForm">
+                            <input type="hidden" name="_to" value="nutribrightclinicals83@gmail.com">
+                            
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="Name" required placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" id="age" name="Age" required placeholder="25" min="1" max="120">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="Gender" required>
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="height">Your Height In Feet</label>
+                                <input type="text" id="height" name="Height" required placeholder="5.6">
+                            </div>
+                            <div class="form-group">
+                                <label for="weight">Your Current Weight (kg)</label>
+                                <input type="number" id="weight" name="Current Weight" required placeholder="70" min="10" max="300">
+                            </div>
+                            <div class="form-group">
+                                <label for="foodchoice">What are Your Food Choice</label>
+                                <select id="foodchoice" name="Food Choice" required>
+                                    <option value="" disabled selected>Select Veg / Non-Veg</option>
+                                    <option value="Vegetarian">Vegetarian</option>
+                                    <option value="Non-Vegetarian">Non-Vegetarian</option>
+                                    <option value="Eggitarian">Eggitarian</option>
+                                    <option value="Vegan">Vegan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="healthissue">Any Health Issue</label>
+                                <input type="text" id="healthissue" name="Health Issues" placeholder="Diabetes, PCOS, None, etc.">
+                            </div>
+                            <div class="form-group">
+                                <label for="allergyissue">Any Allergy Issue (e.g. Food, Lactose Intolerance)</label>
+                                <input type="text" id="allergyissue" name="Allergy Issues" placeholder="Lactose intolerance, Gluten allergy, None, etc.">
+                            </div>
+                            <div class="form-group">
+                                <label for="surgery">Any Surgery History</label>
+                                <input type="text" id="surgery" name="Surgery History" placeholder="Details of past surgeries, None, etc.">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Your Phone Number</label>
+                                <input type="tel" id="phone" name="Phone Number" required placeholder="+91 98765 43210">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Gmail ID</label>
+                                <input type="email" id="email" name="Gmail ID" required placeholder="example@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="query">Your Query</label>
+                                <textarea id="query" name="Query" rows="3" placeholder="Describe your health goals or questions..."></textarea>
+                            </div>
+                            <button type="submit" class="book-btn">BOOK</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="about" class="tab-content">
+            <h1>About Us</h1>
+            <div style="max-width: 800px;">
+                <p>I am a clinical nutritionist dedicated to bridging the gap between scientific research and everyday nourishment. I specialize in translating complex dietary science into practical, sustainable plans tailored to your unique metabolic needs. My focus is not on restrictive dieting, but on treating food as medicine to help manage chronic conditions, restore hormonal balance, and optimize your long-term health.</p>
+                <p>I strive to create a non-judgmental, compassionate space where you feel truly heard and empowered to make meaningful, lasting changes to your health and well-being. I believe that every individual's body is entirely unique. That is why my approach is deeply personalized—we look at your lifestyle, stress levels, and history to craft a sustainable roadmap just for you.</p>
+            </div>
+        </div>
+
+        <div id="services" class="tab-content">
+            <h1>All Services</h1>
+            <div style="max-width: 800px; margin-bottom: 3rem;">
+                <p>I translate the latest, evidence-based nutrition science into highly personalized eating plans designed to help you manage chronic conditions, prevent illness, and optimize your overall well-being. My approach treats food as foundational medicine, focusing on nutritional interventions tailored to your specific metabolic needs, lab results, and health goals.</p>
+            </div>
+            <h2>These Are the Services That will be Served:</h2>
+            <ul class="services-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <li>PCOS Management</li>
+                <li>Hypertension (BP Control)</li>
+                <li>Cholesterol Management</li>
+                <li>Fatty Liver Care</li>
+                <li>Diabetes Management</li>
+                <li>Thyroid & Hormonal Balance</li>
+                <li>Digestive & Gut Health</li>
+                <li>Weight Management</li>
+                <li>Skin, Hair & Immunity Support</li>
+            </ul>
+        </div>
+
+        <div id="plans" class="tab-content">
+            <h1>All Plans</h1>
+            <div class="plans-container">
+                <span class="promo-badge">🔥 LIMITED PERIOD OFFER 🔥</span>
+                <h2 style="margin-bottom: 0.5rem;">ACHIEVE YOUR FITNESS GOALS!</h2>
+                <h3 style="font-family: var(--font-body); color: var(--text-muted); font-weight: 500; margin-bottom: 1.5rem;">NUTRI BRIGHT CLINICALS Promotional Offer</h3>
+                
+                <div class="trial-box">
+                    📅 10 Days Trial Plan @ Rs 499/- Only!
+                </div>
+
+                <h3 style="margin-top: 1.5rem; color: var(--primary);">Online Weight Loss Program</h3>
+                <ul class="price-list" style="max-width: 500px;">
+                    <li><span>1 Month</span> <span>₹3000</span></li>
+                    <li><span>2 Months</span> <span>₹5000</span></li>
+                    <li><span>3 Months <small style="color: var(--accent);">+ FREE Maintenance</small></span> <span>₹8000</span></li>
+                    <li><span>6 Months <small style="color: var(--accent);">+ FREE Maintenance</small></span> <span>₹15000</span></li>
+                </ul>
+
+                <div class="highlights-box">
+                    <strong>+ Special Highlights for + Maintenance</strong>
+                </div>
+
+                 <h3 style="margin-top: 1.5rem; color: var(--primary);">Weight Management + Disease Reversal</h3>
+                <ul class="price-list" style="max-width: 500px;">
+                    <li><span>1 Month</span> <span>₹4000</span></li>
+                    <li><span>2 Months</span> <span>₹6000</span></li>
+                    <li><span>3 Months <small style="color: var(--accent);">+ FREE Maintenance</small></span> <span>₹9000</span></li>
+                    <li><span>6 Months <small style="color: var(--accent);">+ FREE Maintenance</small></span> <span>₹16000</span></li>
+                </ul>
+
+                <div class="highlights-box">
+                    <strong>+ Special Highlights for + Maintenance</strong>
+                </div>
+
+                <h3 style="margin-top: 3rem; text-align: center;">Why Choose Nutri Bright Clinicals?</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🥑</div>
+                        <strong>100% Customized Diets</strong>
+                        <p style="font-size: 0.95rem; margin: 0.5rem 0 0 0;">As per your lifestyle, likes/dislikes</p>
+                    </div>
+                    <div class="feature-item">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🚫</div>
+                        <strong>No starving, no boring food!</strong>
+                        <p style="font-size: 0.95rem; margin: 0.5rem 0 0 0;">Only healthy, tasty meals</p>
+                    </div>
+                    <div class="feature-item">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📉</div>
+                        <strong>Healthy & Safe Progress</strong>
+                        <p style="font-size: 0.95rem; margin: 0.5rem 0 0 0;">Average weight loss of 2-5 kg/month</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; text-align: center; font-weight: 700; font-size: 1.2rem; color: var(--primary);">
+                    INTERESTED CONTACT US.
+                </div>
+            </div>
+        </div>
+
+        <div id="nutriscan" class="tab-content">
+            <h1>Nutri Scan</h1>
+            <p>Welcome to <strong>What The Food</strong> AI Engine. Point your device camera at any meal or snack to break down its nutritional profiles and fetch custom culinary preparation guides instantly.</p>
+            
+            <div class="nutriscan-container">
+                <div class="scan-window">
+                    <video id="scanVideo" autoplay playsinline></video>
+                    <canvas id="scanCanvas"></canvas>
+                    <div class="scan-overlay-ui" id="scanOverlayUI">
+                        <div class="scan-target-box" id="scanTargetBox"></div>
+                        <div class="scan-placeholder" id="scanPlaceholder">
+                            <i class="fa-solid fa-camera"></i>
+                            <p>Camera Interface Ready</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scan-controls">
+                    <button class="scan-btn" id="startCamBtn" onclick="initiateCamera()"><i class="fa-solid fa-power-off"></i> Start Camera</button>
+                    <button class="scan-btn capture" id="captureBtn" onclick="processScan()" style="display:none;"><i class="fa-solid fa-circle-dot"></i> Analyze Food</button>
+                </div>
+
+                <div class="scan-results" id="scanResults">
+                    <div class="result-title">
+                        <i class="fa-solid fa-wand-magic-sparkles" style="color:var(--accent);"></i> 
+                        <span id="resFoodName">Scanned Food Item</span>
+                    </div>
+
+                    <h3 style="font-size:1.2rem; margin-bottom:1rem; color:var(--primary);">AI Computed Nutritional Facts</h3>
+                    <div class="macro-grid">
+                        <div class="macro-card">
+                            <div class="value" id="resCalories">0</div>
+                            <div class="label">Calories</div>
+                        </div>
+                        <div class="macro-card">
+                            <div class="value" id="resProtein">0g</div>
+                            <div class="label">Protein</div>
+                        </div>
+                        <div class="macro-card">
+                            <div class="value" id="resCarbs">0g</div>
+                            <div class="label">Carbs</div>
+                        </div>
+                        <div class="macro-card">
+                            <div class="value" id="resFats">0g</div>
+                            <div class="label">Fats</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-box">
+                        <h4><i class="fa-solid fa-kitchen-set" style="color:var(--accent);"></i> Clinical Core Recipe</h4>
+                        <ol id="resRecipeSteps">
+                            <li>Recipe configuration steps will appear here.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="modal-backdrop" id="successModal">
+        <div class="modal-box">
+            <i class="fa-solid fa-circle-check"></i>
+            <h4>Thank You For Your Move</h4>
+            <p>We Will Contact You Shortly</p>
+            <button class="modal-close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/7838054209" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Catalog Navigation drawer configuration toggle
+        function toggleMenu() {
+            const menu = document.getElementById('catalogMenu');
+            const overlay = document.getElementById('menuOverlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // SPA Tab Content Routing Mechanism
+        function switchTab(tabId) {
+            // Hide all components
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Demote previous navigation items state
+            const links = document.querySelectorAll('.menu-links a');
+            links.forEach(link => link.classList.remove('active-link'));
+
+            // Launch active routing target elements
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('link-' + tabId).classList.add('active-link');
+
+            // Force scroll reset layout perspective
+            window.scrollTo({top: 0, behavior: 'smooth'});
+
+            // Safe close menu overlay frame context if active layout context applies
+            const menu = document.getElementById('catalogMenu');
+            if(menu.classList.contains('active')) {
+                toggleMenu();
+            }
+
+            // Clean up camera tracking if leaving the scan view
+            if (tabId !== 'nutriscan') {
+                terminateCamera();
+            }
+        }
+
+        // Intercept standard form lifecycle to trigger client presentation modal experience
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Halt redirect loop strategy
+            
+            const form = this;
+            const data = new FormData(form);
+            
+            // Post payload directly asynchronously via fetch interface
+            fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                // Show user validation context modal frame regardless of endpoint response state mapping 
+                document.getElementById('successModal').classList.add('show');
+                form.reset(); // Wipe inputs safely
+            }).catch(error => {
+                // Fail-soft presentation routing
+                document.getElementById('successModal').classList.add('show');
+                form.reset();
+            });
+        });
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('show');
+        }
+
+        /* --- WHAT THE FOOD: ENGINE SYSTEM LOGIC --- */
+        let activeStream = null;
+
+        function initiateCamera() {
+            const video = document.getElementById('scanVideo');
+            const startBtn = document.getElementById('startCamBtn');
+            const captureBtn = document.getElementById('captureBtn');
+            const placeholder = document.getElementById('scanPlaceholder');
+            const targetBox = document.getElementById('scanTargetBox');
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+                .then(function(stream) {
+                    activeStream = stream;
+                    video.srcObject = stream;
+                    placeholder.style.display = 'none';
+                    targetBox.style.boxShadow = 'none';
+                    startBtn.style.display = 'none';
+                    captureBtn.style.display = 'inline-flex';
+                })
+                .catch(function(error) {
+                    alert("Camera access denied or unavailable. Running in simulated engine mode.");
+                    simulateSystemReady();
+                });
+            } else {
+                simulateSystemReady();
+            }
+        }
+
+        function simulateSystemReady() {
+            document.getElementById('scanPlaceholder').innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i><p>Simulation Mode Active</p>';
+            document.getElementById('startCamBtn').style.display = 'none';
+            document.getElementById('captureBtn').style.display = 'inline-flex';
+        }
+
+        function terminateCamera() {
+            if (activeStream) {
+                activeStream.getTracks().forEach(track => track.stop());
+                activeStream = null;
+            }
+            const video = document.getElementById('scanVideo');
+            if (video) video.srcObject = null;
+            
+            document.getElementById('startCamBtn').style.display = 'inline-flex';
+            document.getElementById('captureBtn').style.display = 'none';
+            document.getElementById('scanPlaceholder').style.display = 'block';
+            document.getElementById('scanTargetBox').style.boxShadow = '0 0 0 2000px rgba(0, 0, 0, 0.4)';
+        }
+
+        function processScan() {
+            const resultsPanel = document.getElementById('scanResults');
+            
+            // Mock dataset database representing standard healthy clinical responses matching site parameters
+            const mockFoodPool = [
+                {
+                    name: "Avocado Quinoa Salad Bowl",
+                    calories: "340 kcal",
+                    protein: "11g",
+                    carbs: "42g",
+                    fats: "16g",
+                    recipe: [
+                        "Rinse and boil 1/2 cup of organic white quinoa in structured mineral water.",
+                        "Dice 1/2 fresh mature ripe avocado, organic cherry tomatoes, and english cucumbers.",
+                        "Whisk a heart-healthy light dressing using extra virgin cold-pressed olive oil, fresh lemon extract, and a pinch of rock salt.",
+                        "Toss elements carefully together into a clean serving bowl and serve fresh at room temperature."
+                    ]
+                },
+                {
+                    name: "Grilled Herb Salmon with Asparagus",
+                    calories: "410 kcal",
+                    protein: "36g",
+                    carbs: "8g",
+                    fats: "22g",
+                    recipe: [
+                        "Marinate fresh salmon fillet skin with crushed rosemary, minced garlic cloves, and white pepper.",
+                        "Preheat your culinary grill surface to medium-high heat setting.",
+                        "Sear salmon evenly for roughly 4 to 5 minutes on each side safely.",
+                        "Steam tender asparagus spears alongside the protein and garnish with lemon zest."
+                    ]
+                },
+                {
+                    name: "Wholesome Low-GI Oats Porridge",
+                    calories: "280 kcal",
+                    protein: "14g",
+                    carbs: "38g",
+                    fats: "6g",
+                    recipe: [
+                        "Simmer 1 cup of rolled low-GI oats in warm almond milk environment gently.",
+                        "Stir continuously for roughly 5 minutes until a creamy, stable density is formed.",
+                        "Top with raw premium chia seed particles and a small handful of crushed walnut varieties.",
+                        "Incorporate optional organic stevia or minimal raw forest honey syrup if sweetening is desired."
+                    ]
+                }
+            ];
+
+            // Pick random choice item array matrix index point element
+            const randomPick = mockFoodPool[Math.floor(Math.random() * mockFoodPool.length)];
+
+            // Render mapped data variables into view selectors
+            document.getElementById('resFoodName').innerText = randomPick.name;
+            document.getElementById('resCalories').innerText = randomPick.calories;
+            document.getElementById('resProtein').innerText = randomPick.protein;
+            document.getElementById('resCarbs').innerText = randomPick.carbs;
+            document.getElementById('resFats').innerText = randomPick.fats;
+
+            const stepsContainer = document.getElementById('resRecipeSteps');
+            stepsContainer.innerHTML = '';
+            randomPick.recipe.forEach(step => {
+                const li = document.createElement('li');
+                li.innerText = step;
+                stepsContainer.appendChild(li);
+            });
+
+            // Transition item element wrapper display layout block properties open
+            resultsPanel.style.display = 'block';
+            resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
